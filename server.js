@@ -23,7 +23,6 @@ const db = knex({
     database : 'diary_data'
   }
 });
-//
 
 
 const app = express();
@@ -41,9 +40,8 @@ app.post("/showText",(req, res) => { showText.handleShowText(req, res, db) })
 app.post("/fav",(req, res) => { fav.handleFav(req, res, db, moment) })
 
 
-
-app.listen(5000, () => {
-	console.log("App is running on port 5000");
+app.listen(process.env.PORT || 3000, () => {
+	console.log(`App is running on port ${process.env.PORT}`);
 })
 
 
