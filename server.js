@@ -17,7 +17,7 @@ const fav = require('./controllers/fav');
 const db = knex({
   client: 'pg',
   connection: {
-    host : '127.0.0.1',
+    host : 'postgresql-closed-59661)',
     user : 'postgres',
     password : 'prashant282000',
     database : 'diary_data'
