@@ -14,13 +14,24 @@ const showText = require('./controllers/showText');
 const fav = require('./controllers/fav');
 
 
+// const db = knex({
+//   client: 'pg',
+//    connection: {
+//     connectionString: process.env.DATABASE_URL,
+//   ssl: {
+//     rejectUnauthorized: false
+//   }
+//   }
+// });
+
 const db = knex({
-  client: 'pg',
-   connection: {
-    connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false
-  }
+  client: 'mysql',
+  connection: {
+    host : '127.0.0.1',
+    port : 3306,
+    user : 'root',
+    password : '',
+    database : 'diary_data'
   }
 });
 
@@ -39,9 +50,9 @@ app.post("/textContent",(req, res) => { textContent.handleTextContent(req, res, 
 app.post("/showText",(req, res) => { showText.handleShowText(req, res, db) })
 app.post("/fav",(req, res) => { fav.handleFav(req, res, db, moment) })
 
-
-app.listen(process.env.PORT || 3000, () => {
-	console.log(`App is running on port ${process.env.PORT}`);
+const PORT = process.env.PORT || 3000
+app.listen(PORT, () => {
+	console.log(`App is running on port ${PORT}`);
 })
 
 

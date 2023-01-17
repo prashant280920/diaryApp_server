@@ -7,10 +7,9 @@ const handleProfile = (req, res, db) => {
 		avatar:Avatar,
 		textcolor:textColor
 	})
-	.returning('*')
-	.then(user =>{
-		if(user.length){
-			res.json(user[0])	
+	.then(isUpdate =>{
+		if(isUpdate=='1'){
+			db.select('*').from("profile").where('id','=',id).then(user =>  res.json(user[0]));	
 		}else{
 			res.status(400).json("user not found")
 		}

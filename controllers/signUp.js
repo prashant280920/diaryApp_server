@@ -8,22 +8,28 @@ const handleSignUp = (req, res, db, bcrypt) => {
 			email:email
 		})
 		.into('login')
-		.returning('email')
-		.then(loginemail => {
+		// .returning('email')
+		.then(_dataid => {
 			return trx("profile")
-				.returning('*')
+				// .returning(['*'])
 				.insert({
-					email:loginemail[0],
+					email:email,
 					name:name,
 					diaryname:diaryName,
 					joined:new Date()
-				}).then(user => {
-					res.json(user[0]);	
+				}).then(id => {
+					db.select("*").from('profile').where('id','=',id[0])
+					.then(user => {
+						res.json(user[0])}
+					)
+					.catch(_err => {
+						res.status(400).json("error getting user")})
+						
 				})
 
 		}).then(trx.commit)
 		.catch(trx.rollback)
-	}).catch(err => res.status(400).json("email already exit"))
+	}).catch(_err => res.status(400).json("email already exit"))
 	
 }
 
